@@ -1,5 +1,8 @@
-package memento;
-
+import memento.Document;
+import memento.DocumentHistory;
+import memento.DocumentState;
+import memento.Editor;
+import memento.History;
 import state.BrushTool;
 import state.Canvas;
 import state.SelectionTool;
