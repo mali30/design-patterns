@@ -1,3 +1,5 @@
+import iterator.BrowseHistory;
+import iterator.Iterator;
 import memento.Document;
 import memento.DocumentHistory;
 import memento.DocumentState;
@@ -55,5 +57,19 @@ public class Main {
         canvas.mouseDown();
 
 
+        /**
+         * Iterator pattern
+         */
+        var browseHistory = new BrowseHistory();
+        browseHistory.push("a");
+        browseHistory.push("b");
+        browseHistory.push("c");
+
+        Iterator iterator = browseHistory.createIterator();
+        while(iterator.hasNext()){
+            String currentIterator = iterator.current();
+            System.out.println(currentIterator);
+            iterator.next();
+        }
     }
 }
