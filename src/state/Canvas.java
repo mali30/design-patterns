@@ -18,10 +18,6 @@ public class Canvas{
         tool.mouseUp();
     }
 
-    public Tool getToolType(){
-        return tool;
-    }
-
     public void setTool(Tool tool){
         this.tool = tool;
     }
