@@ -8,6 +8,11 @@ import memento.History;
 import state.BrushTool;
 import state.Canvas;
 import state.SelectionTool;
+import strategy.BlackAndWhiteFilter;
+import strategy.ImageStorage;
+import strategy.JpegCompressor;
+import strategy.PngCompressor;
+import template.TransferMoneyTask;
 
 public class Main {
 
@@ -71,5 +76,19 @@ public class Main {
             System.out.println(currentIterator);
             iterator.next();
         }
+
+        /*
+            Strategy pattern
+         */
+        var imageStore = new ImageStorage();
+        imageStore.store("file1.txt", new JpegCompressor(), new BlackAndWhiteFilter());
+        imageStore.store("file2.txt", new PngCompressor(), new BlackAndWhiteFilter());
+
+
+        /**
+         *  Template Method Pattern
+         */
+        var task = new TransferMoneyTask();
+        task.execute();
     }
 }
