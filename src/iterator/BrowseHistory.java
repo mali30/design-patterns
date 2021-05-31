@@ -16,7 +16,7 @@ public class BrowseHistory {
 //        urls.add(url);
 //    }
 
-    private void pushArray(String url){
+    public void push(String url){
         urls[count++] = url;
     }
 
@@ -24,7 +24,7 @@ public class BrowseHistory {
 //        return urls.remove(urls.size()-1);
 //    }
 //
-    public String popArray(){
+    public String pop(){
         return urls[--count];
     }
 
