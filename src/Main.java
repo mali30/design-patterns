@@ -1,3 +1,13 @@
+import command.AddCustomerCommand;
+import command.BlackAndWhiteCommand;
+import command.CompositeCommands;
+import command.CustomerService;
+import command.ResizeCommand;
+import command.editor.BoldCommand;
+import command.editor.HTMLDocument;
+import command.editor.UndoableCommand;
+import command.framework.Button;
+import command.framework.Command;
 import iterator.BrowseHistory;
 import iterator.Iterator;
 import memento.Document;
@@ -12,6 +22,8 @@ import strategy.BlackAndWhiteFilter;
 import strategy.ImageStorage;
 import strategy.JpegCompressor;
 import strategy.PngCompressor;
+import template.GenerateReportTask;
+import template.Task;
 import template.TransferMoneyTask;
 
 public class Main {
@@ -88,7 +100,42 @@ public class Main {
         /**
          *  Template Method Pattern
          */
-        var task = new TransferMoneyTask();
+        Task task  = new TransferMoneyTask();
         task.execute();
+
+        task = new GenerateReportTask();
+        task.execute();
+
+        /**
+         *  Command pattern
+         */
+        CustomerService customerService = new CustomerService();
+        Command command = new AddCustomerCommand(customerService);
+        Button button = new Button(command);
+        button.click();
+
+        CompositeCommands compositeCommands = new CompositeCommands();
+        Command command1 = new BlackAndWhiteCommand();
+        Command command2 = new ResizeCommand();
+        compositeCommands.addCommand(command);
+        compositeCommands.addCommand(command1);
+        compositeCommands.addCommand(command2);
+
+        compositeCommands.printCommands();
+
+        command.editor.History history1 = new command.editor.History();
+        HTMLDocument htmlDocument = new HTMLDocument();
+
+        htmlDocument.setContent("Hello world");
+        UndoableCommand boldCommand = new BoldCommand(htmlDocument, history1);
+        boldCommand.execute();
+        System.out.println(htmlDocument.getContent());
+        // another option is to make an UndoCommand class where you pass in the history as a
+        // parameter and call history.pop.unexeute()
+        boldCommand.unexecute();
+        System.out.println(htmlDocument.getContent());
+
+
+
     }
 }
